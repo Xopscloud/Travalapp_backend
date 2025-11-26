@@ -1,0 +1,27 @@
+import 'express-async-errors';
+import express from 'express';
+import cors from 'cors';
+import morgan from 'morgan';
+import path from 'path';
+import { env } from '@/config/env.js';
+import authRoutes from '@/routes/authRoutes.js';
+import momentRoutes from '@/routes/momentRoutes.js';
+import blogRoutes from '@/routes/blogRoutes.js';
+import photoRoutes from '@/routes/photoRoutes.js';
+import destinationRoutes from '@/routes/destinationRoutes.js';
+const app = express();
+app.use(cors());
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+app.use(morgan('dev'));
+app.use('/uploads', express.static(path.resolve(env.uploadRoot)));
+app.use('/api/auth', authRoutes);
+app.use('/api/moments', momentRoutes);
+app.use('/api/blogs', blogRoutes);
+app.use('/api/photos', photoRoutes);
+app.use('/api/destinations', destinationRoutes);
+app.use((err, _req, res, _next) => {
+    console.error(err);
+    res.status(err.status || 500).json({ error: err.message || 'Internal Server Error' });
+});
+export default app;

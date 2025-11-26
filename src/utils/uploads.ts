@@ -20,3 +20,6 @@ export async function deleteUploadFile(relativePath: string | null | undefined) 
   }
 }
 
+// ✅ Alias for backward compatibility
+export const deleteUpload = deleteUploadFile;
+

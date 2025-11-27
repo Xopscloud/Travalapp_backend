@@ -13,12 +13,22 @@ import adminRoutes from './routes/adminRoutes';
 
 const app = express();
 
-app.use(cors());
+// Configure CORS to allow your frontend
+app.use(cors({
+  origin: [
+    'http://localhost:3000',
+    'http://localhost:3001', 
+    'https://travalapp-frontend.vercel.app'
+  ],
+  credentials: true,
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization']
+}));
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(morgan('dev'));
 app.use('/uploads', express.static(path.resolve(env.uploadRoot)));
-
 app.use('/api/auth', authRoutes);
 app.use('/api/moments', momentRoutes);
 app.use('/api/blogs', blogRoutes);

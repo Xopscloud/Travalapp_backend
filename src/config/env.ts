@@ -14,5 +14,5 @@ export const env = {
   jwtSecret: required('JWT_SECRET'),
   adminEmail: required('ADMIN_EMAIL').toLowerCase(),
   adminPassword: required('ADMIN_PASSWORD'),
-  uploadRoot: process.env.UPLOAD_ROOT ?? '../public/uploads'
+  uploadRoot: process.env.UPLOAD_ROOT ?? '../Travalapp_frontend/public/uploads'
 };
